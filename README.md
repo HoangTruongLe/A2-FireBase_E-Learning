@@ -1,7 +1,7 @@
 
 # Repository contents
 
-This repository contains the full application which was built on Angular2 and FireBase. This is a demo application that i made to practice Angular2 and FireBase  
+This repository contains the full application which was built on Angular2 and FireBase. This is a demo application that I made to practice Angular2 and FireBase  
 
 # Looking for the full application repo ? 
 
