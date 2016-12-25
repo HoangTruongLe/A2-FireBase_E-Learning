@@ -1,0 +1,11 @@
+<table class="table lessons-list card card-strong">
+  <tbody>
+  <tr *ngFor="let lesson of lessons">
+    <td class="lesson-tittle">{{lesson.description}}</td>
+    <td class="duration">
+      <i class="md-icon duration-icon">Access time</i>
+      <span>{{lesson.duration}}</span>
+    </td>
+  </tr>
+  </tbody>
+</table>
