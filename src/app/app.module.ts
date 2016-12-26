@@ -15,6 +15,7 @@ import {LessonsListComponent} from './lessons-list/lessons-list.component';
 import {RoutingModule} from "./app-routing.module";
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { CoursesComponent } from './courses/courses.component';
+import {CoursesService} from "./shared/model/courses.service";
 
 @NgModule({
     declarations: [
@@ -31,7 +32,7 @@ import { CoursesComponent } from './courses/courses.component';
         AngularFireModule.initializeApp(firebaseConfig),
         RoutingModule
     ],
-    providers: [LessonsService],
+    providers: [LessonsService, CoursesService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

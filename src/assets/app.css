@@ -229,9 +229,7 @@ ul.top-menu > li > a.menu-active {
 
 .main-container .list {
     display: inline-block;
-    max-width: 270px;
     vertical-align: top;
-    margin-right: 50px;
 }
 
 
@@ -293,6 +291,7 @@ img.dashboard-section  {
 
 .search-bar {
     margin-bottom: 30px;
-    width: 250px;
+    width:100%;
+    max-width: 350px;
 }
 
