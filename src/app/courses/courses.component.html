@@ -2,6 +2,6 @@
     <tr class="course-summary" *ngFor="let course of courses$">
       <td><img src="{{course.courseListIcon}}" alt="" class="lesson-logo"></td>
       <td class="description">{{course.description}}</td>
-      <td><button class="btn btn-primary">View</button></td>
+      <td><button class="btn btn-primary" [routerLink]="course.url">View</button></td>
     </tr>
 </table>
