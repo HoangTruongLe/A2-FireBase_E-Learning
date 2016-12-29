@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AngularFire, FirebaseListObservable} from "angularfire2";
+import {AngularFire} from "angularfire2";
 import {Course} from "./course";
 import {Observable} from "rxjs";
 import {Lesson} from "./lesson";
@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
+import {FirebaseListFactoryOpts} from "angularfire2/interfaces";
 
 
 @Injectable()
@@ -26,25 +27,62 @@ export class CoursesService {
                 equalTo: courseUrl
             }
         })
+            .filter(results => results && results.length > 0)
             .map(result => result[0])
-
     }
 
-    findLessonKeysByCourseUrl(courseUrl: string): Observable<string[]> {
+    findLessonKeysByCourseUrl(courseUrl: string,
+                              query: FirebaseListFactoryOpts = {}): Observable<string[]> {
         return this.findCourseByUrl(courseUrl)
-            .filter(course => !!course)
-            .switchMap(course => this.af.database.list(`lessonsPerCourse/${course.$key}`))
+            .switchMap(course => this.af.database.list(`lessonsPerCourse/${course.$key}`, query))
             .map(lessonKeysObj => lessonKeysObj.map(lessonKey => lessonKey.$key));
     }
 
-    findLessonsPerCourse(courseUrl: string): Observable<Lesson[]> {
-        return this.findLessonKeysByCourseUrl(courseUrl)
-            .filter(results => results && results.length > 0)
-            .do(console.log)
-            .map(lessonKeys => lessonKeys.map(lessonKey => this.af.database.object('lessons/' + lessonKey)))
-            .flatMap(fbojs => Observable.combineLatest(fbojs));
+
+    loadFirstPage(courseUrl: string, pageSize: number): Observable<Lesson[]> {
+
+        return this.findLessonKeysByCourseUrl(courseUrl,
+                {
+                    query: {
+                        orderByKey: true,
+                        limitToFirst: pageSize
+                    }
+                })
+                .map(lessonKeys => lessonKeys.map(lessonKey => this.af.database.object('lessons/' + lessonKey)))
+                .flatMap(fbojs => Observable.combineLatest(fbojs));
 
     }
 
+    loadNextPage(courseUrl: string,
+                 lessonKey: string,
+                 pageSize: number): Observable<Lesson[]> {
+        return this.findLessonKeysByCourseUrl(courseUrl,
+            {
+                query: {
+                    orderByKey: true,
+                    startAt: lessonKey,
+                    limitToFirst: pageSize + 1
+                }
+            })
+            .map(lessonKeys => lessonKeys.map(lessonKey => this.af.database.object('lessons/' + lessonKey)))
+            .flatMap(fbojs => Observable.combineLatest(fbojs))
+            .map(lessons => lessons.slice(1, lessons.length));
 
+
+    }
+    loadPreviousPage(courseUrl: string,
+                 lessonKey: string,
+                 pageSize: number): Observable<Lesson[]> {
+        return this.findLessonKeysByCourseUrl(courseUrl,
+            {
+                query: {
+                    orderByKey: true,
+                    endAt: lessonKey,
+                    limitToLast: pageSize + 1
+                }
+            })
+            .map(lessonKeys => lessonKeys.map(lessonKey => this.af.database.object('lessons/' + lessonKey)))
+            .flatMap(fbojs => Observable.combineLatest(fbojs))
+            .map(lessons => lessons.slice(0, lessons.length - 1));
+    }
 }

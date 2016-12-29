@@ -3,8 +3,11 @@
   <tr *ngFor="let lesson of lessons">
     <td class="lesson-tittle">{{lesson.description}}</td>
     <td class="duration">
-      <i class="md-icon duration-icon">Access time</i>
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
       <span>{{lesson.duration}}</span>
+      <h6>{{lesson.$key}}</h6>
+      <h6>{{lesson.courseId}}</h6>
+
     </td>
   </tr>
   </tbody>
