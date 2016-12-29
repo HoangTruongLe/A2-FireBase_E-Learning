@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CoursesService} from "../shared/model/courses.service";
 import {Lesson} from "../shared/model/lesson";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Course} from "../shared/model/course";
 
 @Component({
@@ -14,10 +14,11 @@ export class CourseDetailComponent implements OnInit {
     lessons: Lesson[];
     course: Course[];
     pageSize = 3;
-    lessonKey:string;
-    courseUrl:string;
+    lessonKey: string;
+    courseUrl: string;
 
-    constructor(private route: ActivatedRoute,
+    constructor(private router: Router,
+                private route: ActivatedRoute,
                 private coursesService: CoursesService) {
     }
 
@@ -45,9 +46,9 @@ export class CourseDetailComponent implements OnInit {
 
     next() {
 
-        if (this.lessons.length>0){
+        if (this.lessons.length > 0) {
             this.lessonKey = this.lessons[this.lessons.length - 1].$key;
-            this.coursesService.loadNextPage(this.courseUrl,  this.lessonKey, this.pageSize)
+            this.coursesService.loadNextPage(this.courseUrl, this.lessonKey, this.pageSize)
                 .subscribe(lessons => this.lessons = lessons);
         }
 
@@ -55,10 +56,10 @@ export class CourseDetailComponent implements OnInit {
 
     previous() {
 
-        if (this.lessons.length>0) {
+        if (this.lessons.length > 0) {
             this.lessonKey = this.lessons[0].$key;
 
-            this.coursesService.loadPreviousPage(this.courseUrl,  this.lessonKey, this.pageSize)
+            this.coursesService.loadPreviousPage(this.courseUrl, this.lessonKey, this.pageSize)
                 .subscribe(lessons => this.lessons = lessons);
         }
 

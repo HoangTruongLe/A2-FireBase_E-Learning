@@ -1,5 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {Lesson} from "../shared/model/lesson";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'lessons-list',
@@ -10,9 +11,14 @@ export class LessonsListComponent implements OnInit {
 
   @Input()
   lessons:Lesson[];
-  constructor() { }
+
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }
 
+  selectLesson(lesson:Lesson)
+  {
+      this.router.navigate(['lessons', lesson.url]);
+  }
 }

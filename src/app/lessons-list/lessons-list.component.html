@@ -1,13 +1,10 @@
 <table class="table lessons-list card card-strong">
   <tbody>
-  <tr *ngFor="let lesson of lessons">
+  <tr *ngFor="let lesson of lessons" (click)="selectLesson(lesson)">
     <td class="lesson-tittle">{{lesson.description}}</td>
     <td class="duration">
       <i class="fa fa-clock-o" aria-hidden="true"></i>
       <span>{{lesson.duration}}</span>
-      <h6>{{lesson.$key}}</h6>
-      <h6>{{lesson.courseId}}</h6>
-
     </td>
   </tr>
   </tbody>

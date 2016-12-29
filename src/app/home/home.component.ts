@@ -18,13 +18,10 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.lessonService.findAllLessons()
-            .do(console.log)
             .subscribe(lessons => this.lessons = this.filtered = lessons);
     }
     search(search:string){
-        console.log(search);
         this.filtered = this.lessons.filter(lessons => lessons.description.includes(search));
-        console.log(this.filtered);
     }
 
 }
