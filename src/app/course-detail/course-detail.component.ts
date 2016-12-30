@@ -12,7 +12,7 @@ import {Course} from "../shared/model/course";
 export class CourseDetailComponent implements OnInit {
 
     lessons: Lesson[];
-    course: Course[];
+    course: Course;
     pageSize = 3;
     lessonKey: string;
     courseUrl: string;

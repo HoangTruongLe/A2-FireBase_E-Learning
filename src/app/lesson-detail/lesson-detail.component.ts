@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {LessonsService} from "../shared/model/lessons.service";
 import {Lesson} from "../shared/model/lesson";
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/do';
 
 @Component({
     selector: 'lesson-detail',
@@ -10,15 +12,43 @@ import {Lesson} from "../shared/model/lesson";
 })
 export class LessonDetailComponent implements OnInit {
 
-    lesson:Lesson;
-    constructor(private route: ActivatedRoute,
+    lesson: Lesson;
+    constructor(private router: Router,
+                private route: ActivatedRoute,
                 private lessonService: LessonsService) {
     }
 
     ngOnInit() {
-        const lessonUrl= this.route.snapshot.params['id'];
-        this.lessonService.findLessonByUrl(lessonUrl)
+        this.route.params
+            .distinctUntilChanged()
+            .switchMap(params => {
+                const lessonUrl = params['id'];
+                console.log(lessonUrl);
+                return this.lessonService.findLessonByUrl(lessonUrl)
+
+            })
             .subscribe(lesson => this.lesson = lesson);
+    }
+
+    previous() {
+
+            this.lessonService.findPreviousLesson(this.lesson.courseId, this.lesson.$key)
+                .subscribe(lesson => {
+                    console.log(lesson);
+                    this.navigateToLesson.bind(this)
+                });
+    }
+
+    next() {
+            this.lessonService.findNextLesson(this.lesson.courseId, this.lesson.$key)
+                .subscribe(lesson => {
+                    console.log(lesson);
+                    this.navigateToLesson.bind(this)
+                });
+    }
+
+    navigateToLesson(lesson: Lesson) {
+        this.router.navigate(['lessons', lesson.url]);
     }
 
 }

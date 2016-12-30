@@ -3,10 +3,7 @@ import {AngularFire} from "angularfire2";
 import {Course} from "./course";
 import {Observable} from "rxjs";
 import {Lesson} from "./lesson";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/filter';
+
 import {FirebaseListFactoryOpts} from "angularfire2/interfaces";
 
 
@@ -34,6 +31,7 @@ export class CoursesService {
     findLessonKeysByCourseUrl(courseUrl: string,
                               query: FirebaseListFactoryOpts = {}): Observable<string[]> {
         return this.findCourseByUrl(courseUrl)
+            .filter(course => !!course)
             .switchMap(course => this.af.database.list(`lessonsPerCourse/${course.$key}`, query))
             .map(lessonKeysObj => lessonKeysObj.map(lessonKey => lessonKey.$key));
     }

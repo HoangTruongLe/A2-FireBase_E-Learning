@@ -1,10 +1,11 @@
 <h2>{{course?.description}}</h2>
-<div class="nav-button-container">
-    <button class="btn btn-info" (click)="previous()">Previous Page</button>
-    <button class="btn btn-info" (click)="next()">Next Page</button>
-</div>
-
-
 <div class="lessons-list-container v-h-center-block-parent">
-    <lessons-list [lessons]="lessons" ></lessons-list>
+    <div class="nav-bar">
+        <button class="btn btn-info" (click)="previous()">Previous Page</button>
+        <button class="btn btn-info" (click)="next()">Next Page</button>
+    </div>
+    <lessons-list [lessons]="lessons"></lessons-list>
+    <div class="tools-bar">
+        <button class="btn btn-info" routerLink="new" [queryParams]="{courseId: course?.$key}">New Lesson</button>
+    </div>
 </div>

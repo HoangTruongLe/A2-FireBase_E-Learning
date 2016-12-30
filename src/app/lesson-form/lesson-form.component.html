@@ -1,0 +1,31 @@
+<form [formGroup]="form" aotocomplete="off" novalidate class="lesson-form">
+    <fieldset>
+        <legend id="lesson-legend">lesson</legend>
+        <div class="form-field">
+            <label>Description:</label>
+            <input type="text" name="title" formControlName="description">
+            <div class="field-error-message" *ngIf="isErrorVisible('description','required')">Field is mandatory</div>
+        </div>
+        <div class="form-field">
+            <label for="lesson-legend">Lesson Url:</label>
+            <input type="text" name="title" formControlName="url">
+            <div class="field-error-message" *ngIf="isErrorVisible('url','required')">Field is mandatory</div>
+        </div>
+        <div class="form-field">
+            <label for="lesson-legend">Video Url:</label>
+            <input type="text" name="title" formControlName="videoUrl">
+            <div class="field-error-message" *ngIf="isErrorVisible('videoUrl','required')">Field is mandatory</div>
+            <!--<div class="field-error-message">Not a valid url</div>-->
+        </div>
+        <div class="form-field">
+            <label for="lesson-legend">Tags: </label>
+            <input type="text" name="title" formControlName="tags">
+            <div class="field-error-message" *ngIf="isErrorVisible('tags','required')">Field is mandatory</div>
+        </div>
+        <div class="form-field">
+            <label for="lesson-legend">Long Description: </label>
+            <input type="text" name="title" formControlName="longDescription">
+            <div class="field-error-message" *ngIf="isErrorVisible('longDescription','required')">Field is mandatory</div>
+        </div>
+    </fieldset>
+</form>
