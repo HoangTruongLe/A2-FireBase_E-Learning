@@ -5,6 +5,8 @@ import {CoursesComponent} from "./courses/courses.component";
 import {CourseDetailComponent} from "./course-detail/course-detail.component";
 import {LessonDetailComponent} from "./lesson-detail/lesson-detail.component";
 import {NewLessonComponent} from "./new-lesson/new-lesson.component";
+import {EditLessonComponent} from "./edit-lesson/edit-lesson.component";
+import {LessonResolver} from "./shared/model/lesson.resolver";
 const routes: Routes = [
     {
         path: 'home',
@@ -34,7 +36,19 @@ const routes: Routes = [
     },
     {
         path: 'lessons/:id',
-        component:LessonDetailComponent
+        children: [
+            {
+                path:'',
+                component: LessonDetailComponent
+            },
+            {
+                path: 'edit',
+                component: EditLessonComponent,
+                resolve:{
+                    lesson: LessonResolver
+                }
+            }
+        ]
     },
     {
         path:'',

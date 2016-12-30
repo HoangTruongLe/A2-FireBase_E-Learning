@@ -1,27 +1,41 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {validateUrl} from "../shared/validators/validateUrl";
+import {Lesson} from "../shared/model/lesson";
 
 @Component({
     selector: 'lesson-form',
     templateUrl: './lesson-form.component.html',
     styleUrls: ['./lesson-form.component.css']
 })
-export class LessonFormComponent implements OnInit {
+export class LessonFormComponent implements OnInit,OnChanges {
 
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    @Input()
+    initialValue:Lesson;
 
-    ngOnInit() {
+    constructor(private fb: FormBuilder) {
         this.form = this.fb.group({
             description: ['', Validators.required],
             url: ['', Validators.required],
-            videoUrl: ['', Validators.required],
+            videoUrl: ['', [Validators.required, validateUrl]],
             tags: ['', Validators.required],
             longDescription: ['']
         })
+    }
 
+
+
+    ngOnInit() {
+
+
+    }
+
+    ngOnChanges(changes:SimpleChanges){
+        if(changes['initialValue']){
+            this.form.patchValue(changes['initialValue'].currentValue)
+        }
     }
 
     isErrorVisible(field:string, error:string) {

@@ -36,7 +36,7 @@ export class LessonsService {
                 limitToFirst: 2
             }
         })
-        //.filter(result => result && result.length > 0)
+            .filter(result => result && result.length > 0)
             .map(lesson => lesson[1].$key)
             .switchMap(lessonId => this.af.database.object(`lessons/${lessonId}`))
             .map(Lesson.fromJson);
@@ -51,7 +51,7 @@ export class LessonsService {
                 limitToLast: 2
             }
         })
-        // .filter(result => result && result.length > 0)
+            .filter(result => result && result.length > 0)
             .map(lesson => lesson[0].$key)
             .switchMap(lessonId => this.af.database.object(`lessons/${lessonId}`))
             .map(Lesson.fromJson);
@@ -69,7 +69,7 @@ export class LessonsService {
 
     };
 
-    firebaseUpdate(dataToSave){
+    firebaseUpdate(dataToSave) {
         const subject = new Subject();
         this.sdkRef.update(dataToSave)
             .then(
@@ -82,5 +82,14 @@ export class LessonsService {
                     subject.complete();
                 });
         return subject.asObservable();
+    }
+
+    saveLesson(lessonId,formValue):Observable<any>{
+        const lessonToSave = Object.assign({}, formValue);
+        delete (lessonToSave.$key);
+
+        var dataToSave = {};
+        dataToSave[`lessons/${lessonId}`] = lessonToSave;
+        return this.firebaseUpdate(dataToSave)
     }
 }

@@ -13,6 +13,7 @@ import 'rxjs/add/operator/do';
 export class LessonDetailComponent implements OnInit {
 
     lesson: Lesson;
+
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private lessonService: LessonsService) {
@@ -32,19 +33,13 @@ export class LessonDetailComponent implements OnInit {
 
     previous() {
 
-            this.lessonService.findPreviousLesson(this.lesson.courseId, this.lesson.$key)
-                .subscribe(lesson => {
-                    console.log(lesson);
-                    this.navigateToLesson.bind(this)
-                });
+        this.lessonService.findPreviousLesson(this.lesson.courseId, this.lesson.$key)
+            .subscribe(this.navigateToLesson.bind(this));
     }
 
     next() {
-            this.lessonService.findNextLesson(this.lesson.courseId, this.lesson.$key)
-                .subscribe(lesson => {
-                    console.log(lesson);
-                    this.navigateToLesson.bind(this)
-                });
+        this.lessonService.findNextLesson(this.lesson.courseId, this.lesson.$key)
+            .subscribe(this.navigateToLesson.bind(this));
     }
 
     navigateToLesson(lesson: Lesson) {
