@@ -9,6 +9,7 @@ import {EditLessonComponent} from "./edit-lesson/edit-lesson.component";
 import {LessonResolver} from "./shared/model/lesson.resolver";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
+import {AuthGuard} from "./shared/security/auth.guard";
 const routes: Routes = [
     {
         path: 'home',
@@ -41,7 +42,8 @@ const routes: Routes = [
         children: [
             {
                 path:'',
-                component: LessonDetailComponent
+                component: LessonDetailComponent,
+                canActivate:[AuthGuard]
             },
             {
                 path: 'edit',

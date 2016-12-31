@@ -34,4 +34,13 @@ export class AuthService {
         return subject.asObservable();
     }
 
+    signUp(email:string, password:string) :Observable<any>{
+        return this.fromFirebaseAuthPromise(this.auth.createUser({email,password}));
+    }
+
+    logOut(){
+        this.auth.logout();
+        this.authInfo$.next(AuthService.UNKNOWN_USER);
+    }
+
 }

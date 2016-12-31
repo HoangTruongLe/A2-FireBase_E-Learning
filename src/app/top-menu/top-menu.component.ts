@@ -15,4 +15,7 @@ export class TopMenuComponent implements OnInit {
     this.authService.authInfo$.subscribe(authInfo => this.authInfo = authInfo);
   }
 
+  logOut(){
+    this.authService.logOut();
+  }
 }

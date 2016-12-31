@@ -1,6 +1,7 @@
 
 import {firebaseConfig} from "./src/environments/firebase.config";
 import {initializeApp, auth,database} from 'firebase';
+import Promise = firebase.Promise;
 var Queue = require('firebase-queue');
 
 

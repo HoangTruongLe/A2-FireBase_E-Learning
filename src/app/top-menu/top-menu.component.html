@@ -6,7 +6,7 @@
     <li><a routerLink="courses" routerLinkActive="menu-active">Courses</a></li>
     <li *ngIf="!authInfo?.isLoggedIn()"><a routerLink="login"  routerLinkActive="menu-active">Login</a></li>
     <li *ngIf="!authInfo?.isLoggedIn()"><a routerLink="register"  routerLinkActive="menu-active">Register</a></li>
-    <li *ngIf="authInfo?.isLoggedIn()"><a routerLink="logout"  routerLinkActive="menu-active">Logout</a></li>
+    <li *ngIf="authInfo?.isLoggedIn()"><a (click)="logOut()" routerLinkActive="menu-active">Logout</a></li>
 
   </ul>
 </header>
