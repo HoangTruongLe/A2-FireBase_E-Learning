@@ -5,7 +5,7 @@ import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {AngularFireModule} from "angularfire2";
-import {firebaseConfig} from "../environments/firebase.config";
+import {firebaseConfig, authConfig} from "../environments/firebase.config";
 import {HomeComponent} from './home/home.component';
 import {LessonsService} from "./shared/model/lessons.service";
 
@@ -27,6 +27,7 @@ import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
 import {LessonResolver} from "./shared/model/lesson.resolver";
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import {AuthService} from "./shared/security/auth.service";
 
 @NgModule({
     declarations: [
@@ -48,12 +49,12 @@ import { RegisterComponent } from './register/register.component';
         BrowserModule,
         FormsModule,
         HttpModule,
-        AngularFireModule.initializeApp(firebaseConfig),
+        AngularFireModule.initializeApp(firebaseConfig,authConfig),
         RoutingModule,
         ReactiveFormsModule
 
     ],
-    providers: [LessonsService, CoursesService, LessonResolver],
+    providers: [LessonsService, CoursesService, LessonResolver,AuthService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

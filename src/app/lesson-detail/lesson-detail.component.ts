@@ -24,20 +24,24 @@ export class LessonDetailComponent implements OnInit {
             .distinctUntilChanged()
             .switchMap(params => {
                 const lessonUrl = params['id'];
-                console.log(lessonUrl);
                 return this.lessonService.findLessonByUrl(lessonUrl)
 
             })
-            .subscribe(lesson => this.lesson = lesson);
+            .subscribe(lesson => {
+
+                this.lesson = lesson;
+                // console.log(this.lesson);
+            });
     }
 
     previous() {
-
+        // console.log(this.lesson.courseId, this.lesson.$key);
         this.lessonService.findPreviousLesson(this.lesson.courseId, this.lesson.$key)
             .subscribe(this.navigateToLesson.bind(this));
     }
 
     next() {
+        // console.log(this.lesson.courseId, this.lesson.$key);
         this.lessonService.findNextLesson(this.lesson.courseId, this.lesson.$key)
             .subscribe(this.navigateToLesson.bind(this));
     }

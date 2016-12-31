@@ -17,6 +17,8 @@ export class LessonFormComponent implements OnInit,OnChanges {
 
     constructor(private fb: FormBuilder) {
         this.form = this.fb.group({
+            courseID: ['',Validators.required],
+            Duration: ['',Validators.required],
             description: ['', Validators.required],
             url: ['', Validators.required],
             videoUrl: ['', [Validators.required, validateUrl]],

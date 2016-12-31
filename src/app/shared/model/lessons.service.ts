@@ -29,7 +29,8 @@ export class LessonsService {
     }
 
     findNextLesson(courseId: string, lessonKey: string): Observable<Lesson> {
-        return this.af.database.list(`lessonsPerCourse/${courseId}`, {
+        // console.log(courseId,lessonKey);
+        var test = this.af.database.list(`lessonsPerCourse/${courseId}`, {
             query: {
                 orderByKey: true,
                 startAt: lessonKey,
@@ -37,14 +38,17 @@ export class LessonsService {
             }
         })
             .filter(result => result && result.length > 0)
+            .do(console.log)
             .map(lesson => lesson[1].$key)
             .switchMap(lessonId => this.af.database.object(`lessons/${lessonId}`))
             .map(Lesson.fromJson);
+        return test;
 
     }
 
     findPreviousLesson(courseId: string, lessonKey: string): Observable<Lesson> {
-        return this.af.database.list(`lessonsPerCourse/${courseId}`, {
+        // console.log(courseId,lessonKey);
+        var test = this.af.database.list(`lessonsPerCourse/${courseId}`, {
             query: {
                 orderByKey: true,
                 endAt: lessonKey,
@@ -52,9 +56,11 @@ export class LessonsService {
             }
         })
             .filter(result => result && result.length > 0)
+            .do(result => console.log(result))
             .map(lesson => lesson[0].$key)
             .switchMap(lessonId => this.af.database.object(`lessons/${lessonId}`))
             .map(Lesson.fromJson);
+        return test;
     }
 
     createNewLesson(courseId, lesson: any): Observable<any> {

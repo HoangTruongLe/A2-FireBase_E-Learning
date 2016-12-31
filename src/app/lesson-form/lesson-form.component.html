@@ -7,6 +7,16 @@
             <div class="field-error-message" *ngIf="isErrorVisible('description','required')">Field is mandatory</div>
         </div>
         <div class="form-field">
+            <label>Description:</label>
+            <input type="text" name="title" formControlName="courseId">
+            <div class="field-error-message" *ngIf="isErrorVisible('courseId','required')">Field is mandatory</div>
+        </div>
+        <div class="form-field">
+            <label>Description:</label>
+            <input type="text" name="title" formControlName="duration">
+            <div class="field-error-message" *ngIf="isErrorVisible('duration','required')">Field is mandatory</div>
+        </div>
+        <div class="form-field">
             <label for="lesson-legend">Lesson Url:</label>
             <input type="text" name="title" formControlName="url">
             <div class="field-error-message" *ngIf="isErrorVisible('url','required')">Field is mandatory</div>
