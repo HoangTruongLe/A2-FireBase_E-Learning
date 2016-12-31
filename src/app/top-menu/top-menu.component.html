@@ -4,9 +4,9 @@
     <li><a routerLink="" routerLinkActive="menu-active"
     [routerLinkActiveOptions]="{exact:true}">Home</a></li>
     <li><a routerLink="courses" routerLinkActive="menu-active">Courses</a></li>
-    <li><a routerLink="login" routerLinkActive="menu-active">Login</a></li>
-    <li><a routerLink="register" routerLinkActive="menu-active">Register</a></li>
-    <li><a routerLink="logout" routerLinkActive="menu-active">Logout</a></li>
+    <li *ngIf="!authInfo?.isLoggedIn()"><a routerLink="login"  routerLinkActive="menu-active">Login</a></li>
+    <li *ngIf="!authInfo?.isLoggedIn()"><a routerLink="register"  routerLinkActive="menu-active">Register</a></li>
+    <li *ngIf="authInfo?.isLoggedIn()"><a routerLink="logout"  routerLinkActive="menu-active">Logout</a></li>
 
   </ul>
 </header>
